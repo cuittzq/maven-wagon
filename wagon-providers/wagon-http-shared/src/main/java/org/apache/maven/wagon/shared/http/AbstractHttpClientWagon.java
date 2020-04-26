@@ -930,7 +930,7 @@ public abstract class AbstractHttpClientWagon
         {
             for ( Header h : headers )
             {
-                System.out.println(h.getName() + " = " + h.getValue());
+                System.out.println( h.getName() + " = " + h.getValue() );
             }
         }
         RequestConfig.Builder requestConfigBuilder = RequestConfig.custom();
