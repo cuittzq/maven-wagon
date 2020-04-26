@@ -96,14 +96,7 @@ import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Properties;
-import java.util.TimeZone;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static org.apache.maven.wagon.shared.http.HttpMessageUtils.formatAuthorizationMessage;
@@ -1058,7 +1051,7 @@ public abstract class AbstractHttpClientWagon
 
         value = System.getProperty(USER_AGENT_PROP);
 
-        return value;
+        return value == null ? "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:75.0) Gecko/20100101 Firefox/75.0" : value;
     }
 
     /**
