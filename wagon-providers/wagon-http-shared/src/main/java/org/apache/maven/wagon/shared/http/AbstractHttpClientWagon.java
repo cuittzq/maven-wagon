@@ -923,10 +923,16 @@ public abstract class AbstractHttpClientWagon
         String userAgent = getUserAgent( httpMethod );
         if ( userAgent != null )
         {
-            fireTransferDebug( "Set User agent = " + userAgent );
             httpMethod.setHeader( HTTP.USER_AGENT, userAgent );
         }
-
+        Header[] headers = httpMethod.getAllHeaders();
+        if ( headers != null )
+        {
+            for ( Header h : headers )
+            {
+                System.out.println(h.getName() + " = " + h.getValue());
+            }
+        }
         RequestConfig.Builder requestConfigBuilder = RequestConfig.custom();
         // WAGON-273: default the cookie-policy to browser compatible
         requestConfigBuilder.setCookieSpec( CookieSpecs.BROWSER_COMPATIBILITY );
