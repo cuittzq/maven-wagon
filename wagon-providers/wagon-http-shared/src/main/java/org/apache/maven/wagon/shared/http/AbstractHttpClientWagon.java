@@ -921,6 +921,7 @@ public abstract class AbstractHttpClientWagon
     {
         setHeaders( httpMethod );
         String userAgent = getUserAgent( httpMethod );
+        System.out.println( "get user agent = " + userAgent );
         if ( userAgent != null )
         {
             httpMethod.setHeader( HTTP.USER_AGENT, userAgent );
@@ -1029,14 +1030,10 @@ public abstract class AbstractHttpClientWagon
             }
         }
 
-        Header userAgentHeader = method.getFirstHeader( HTTP.USER_AGENT );
-        if ( userAgentHeader == null )
+        String userAgent = getUserAgent( method );
+        if ( userAgent != null )
         {
-            String userAgent = getUserAgent( method );
-            if ( userAgent != null )
-            {
-                method.setHeader( HTTP.USER_AGENT, userAgent );
-            }
+            method.setHeader( HTTP.USER_AGENT, userAgent );
         }
     }
 
