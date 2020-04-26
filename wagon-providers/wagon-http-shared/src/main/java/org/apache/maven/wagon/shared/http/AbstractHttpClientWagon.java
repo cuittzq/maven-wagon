@@ -1042,31 +1042,14 @@ public abstract class AbstractHttpClientWagon
 
     protected String getUserAgent( HttpUriRequest method )
     {
-        String value = null;
-        if ( httpHeaders != null )
-        {
-            value = (String) httpHeaders.get( HTTP.USER_AGENT );
-            if ( value != null )
-            {
-                return value;
-            }
-        }
-        HttpMethodConfiguration config =
-            httpConfiguration == null ? null : httpConfiguration.getMethodConfiguration( method );
+        String value = System.getProperty( USER_AGENT_PROP );
 
-        if ( config != null )
+        if ( value == null )
         {
-            value = (String) config.getHeaders().get( HTTP.USER_AGENT );
-
-            if ( value != null )
-            {
-                return value;
-            }
+            value = System.getenv( "maven.user.agent" );
         }
 
-        value = System.getProperty( USER_AGENT_PROP );
-
-        return value == null ? "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:75.0) Gecko/20100101 Firefox/75.0" : value;
+        return value;
     }
 
     /**
