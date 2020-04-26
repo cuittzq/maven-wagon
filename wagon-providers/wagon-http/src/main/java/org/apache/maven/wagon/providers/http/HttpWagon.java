@@ -133,5 +133,4 @@ public class HttpWagon
             throw new TransferFailedException( "Unable to wait for resource.", e );
         }
     }
-
 }

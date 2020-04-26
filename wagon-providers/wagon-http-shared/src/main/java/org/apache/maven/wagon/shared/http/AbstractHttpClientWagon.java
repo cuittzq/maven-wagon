@@ -322,6 +322,8 @@ public abstract class AbstractHttpClientWagon
     private static final int MAX_BACKOFF_WAIT_SECONDS =
         Integer.parseInt( System.getProperty( "maven.wagon.httpconnectionManager.maxBackoffSeconds", "180" ) );
 
+    private static final String USER_AGENT_PROP = "user.agent";
+
     protected int backoff( int wait, String url )
         throws InterruptedException, TransferFailedException
     {
@@ -1033,9 +1035,10 @@ public abstract class AbstractHttpClientWagon
 
     protected String getUserAgent( HttpUriRequest method )
     {
+        String value = null;
         if ( httpHeaders != null )
         {
-            String value = (String) httpHeaders.get( HTTP.USER_AGENT );
+            value = (String) httpHeaders.get( HTTP.USER_AGENT );
             if ( value != null )
             {
                 return value;
@@ -1046,9 +1049,16 @@ public abstract class AbstractHttpClientWagon
 
         if ( config != null )
         {
-            return (String) config.getHeaders().get( HTTP.USER_AGENT );
+            value = (String) config.getHeaders().get( HTTP.USER_AGENT );
+
+            if (value != null) {
+                return value;
+            }
         }
-        return null;
+
+        value = System.getProperty(USER_AGENT_PROP);
+
+        return value;
     }
 
     /**
@@ -1312,4 +1322,5 @@ public abstract class AbstractHttpClientWagon
     {
         return MAX_BACKOFF_WAIT_SECONDS;
     }
+
 }
