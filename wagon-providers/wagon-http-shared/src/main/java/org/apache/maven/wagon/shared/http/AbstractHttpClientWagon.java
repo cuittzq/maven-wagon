@@ -916,6 +916,7 @@ public abstract class AbstractHttpClientWagon
         String userAgent = getUserAgent( httpMethod );
         if ( userAgent != null )
         {
+            fireTransferDebug("Set User agent = " + userAgent);
             httpMethod.setHeader( HTTP.USER_AGENT, userAgent );
         }
 
