@@ -1052,7 +1052,7 @@ public abstract class AbstractHttpClientWagon
         {
             value = (String) config.getHeaders().get( HTTP.USER_AGENT );
 
-            if (value != null)
+            if ( value != null )
             {
                 return value;
             }
