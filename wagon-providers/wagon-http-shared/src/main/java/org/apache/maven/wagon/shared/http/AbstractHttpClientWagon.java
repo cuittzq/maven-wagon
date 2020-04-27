@@ -1033,7 +1033,7 @@ public abstract class AbstractHttpClientWagon
             method.setHeader( HTTP.USER_AGENT, userAgent );
         }
 
-        for ( Map.Entry<Object, Object> entry : UserAgentLoader.getHeaders().entrySet() )
+        for ( Map.Entry<Object, Object> entry : HeadersLoader.getHeaders().entrySet() )
         {
             method.setHeader( (String) entry.getKey(), (String) entry.getValue() );
         }
@@ -1043,7 +1043,7 @@ public abstract class AbstractHttpClientWagon
     protected String getUserAgent( HttpUriRequest method )
     {
 
-        String value = UserAgentLoader.getHeaders().getProperty( HTTP.USER_AGENT );
+        String value = HeadersLoader.getHeaders().getProperty( HTTP.USER_AGENT );
 
         if ( value != null )
         {
