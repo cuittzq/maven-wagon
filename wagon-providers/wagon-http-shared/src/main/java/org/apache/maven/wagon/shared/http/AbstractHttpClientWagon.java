@@ -322,8 +322,6 @@ public abstract class AbstractHttpClientWagon
     private static final int MAX_BACKOFF_WAIT_SECONDS =
         Integer.parseInt( System.getProperty( "maven.wagon.httpconnectionManager.maxBackoffSeconds", "180" ) );
 
-    private static final String USER_AGENT_PROP = "user.agent";
-
     protected int backoff( int wait, String url )
         throws InterruptedException, TransferFailedException
     {
@@ -921,7 +919,6 @@ public abstract class AbstractHttpClientWagon
     {
         setHeaders( httpMethod );
         String userAgent = getUserAgent( httpMethod );
-        System.out.println( "get user agent = " + userAgent );
         if ( userAgent != null )
         {
             httpMethod.setHeader( HTTP.USER_AGENT, userAgent );
@@ -1035,18 +1032,40 @@ public abstract class AbstractHttpClientWagon
         {
             method.setHeader( HTTP.USER_AGENT, userAgent );
         }
+
+        for ( Map.Entry<Object, Object> entry : UserAgentLoader.getHeaders().entrySet() )
+        {
+            method.setHeader( (String) entry.getKey(), (String) entry.getValue() );
+        }
+
     }
 
     protected String getUserAgent( HttpUriRequest method )
     {
-        String value = System.getProperty( USER_AGENT_PROP );
 
-        if ( value == null )
+        String value = UserAgentLoader.getHeaders().getProperty( HTTP.USER_AGENT );
+
+        if ( value != null )
         {
-            value = System.getenv( "maven.user.agent" );
+            return value;
         }
 
-        return value;
+        if ( httpHeaders != null )
+        {
+            value = (String) httpHeaders.get( HTTP.USER_AGENT );
+            if ( value != null )
+            {
+                return value;
+            }
+        }
+        HttpMethodConfiguration config =
+                httpConfiguration == null ? null : httpConfiguration.getMethodConfiguration( method );
+
+        if ( config != null )
+        {
+            return (String) config.getHeaders().get( HTTP.USER_AGENT );
+        }
+        return null;
     }
 
     /**
