@@ -47,7 +47,9 @@ public class HeadersLoader
 
         if ( mavenHome != null )
         {
-            try ( InputStream in = new BufferedInputStream( Files.newInputStream( Paths.get( mavenHome, "conf/headers.properties" ) ) ) ) {
+            try ( InputStream in = new BufferedInputStream(
+                    Files.newInputStream( Paths.get( mavenHome, "conf/headers.properties" ) ) ) )
+            {
                 headers.load( in );
             } catch ( IOException ignore )
             {
