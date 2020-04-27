@@ -19,3 +19,7 @@ mvn clean package -Dmaven.test.skip=true
 User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:75.0) Gecko/20100101 Firefox/75.0
 test-header=lidelin
 ```
+
+Note: 已打包的Jar包百度网盘：
+链接：https://pan.baidu.com/s/1uIW7rkjUr2SN7JeKl5JK7w 
+提取码：e098 
